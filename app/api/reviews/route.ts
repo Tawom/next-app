@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
       tour: tourId,
       user: session.user.id,
       userName: session.user.name,
-      userAvatar: session.user.image,
+      userAvatar: session.user.avatar,
       rating,
       title,
       comment,
