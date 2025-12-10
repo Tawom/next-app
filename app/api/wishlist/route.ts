@@ -3,7 +3,7 @@ import connectDB from "@/lib/mongodb";
 import Wishlist from "@/models/Wishlist";
 import Tour from "@/models/Tour";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 /**
  * GET /api/wishlist
