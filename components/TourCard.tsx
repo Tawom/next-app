@@ -36,12 +36,17 @@ export default function TourCard({ tour, priority = false }: TourCardProps) {
   const tourId =
     "_id" in tour ? String((tour as { _id: unknown })._id) : tour.id;
 
+  // Fallback image if imageUrl is null or empty
+  const imageUrl =
+    tour.imageUrl ||
+    "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80";
+
   return (
     <Card>
       {/* Tour Image */}
       <div className="relative h-48 w-full">
         <Image
-          src={tour.imageUrl}
+          src={imageUrl}
           alt={tour.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

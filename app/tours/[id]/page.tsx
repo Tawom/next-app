@@ -45,6 +45,11 @@ export default async function TourDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  // Fallback image if imageUrl is null or empty
+  const imageUrl =
+    tour.imageUrl ||
+    "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80";
+
   return (
     <main className="min-h-screen bg-gray-50">
       {/* Hero Section with Gallery or Single Image */}
@@ -58,13 +63,13 @@ export default async function TourDetailPage({ params }: PageProps) {
           {/* Image Gallery or Single Image */}
           {tour.images && tour.images.length > 0 ? (
             <ImageGallery
-              images={[tour.imageUrl, ...tour.images]}
+              images={[imageUrl, ...tour.images]}
               tourName={tour.name}
             />
           ) : (
             <div className="relative h-96 w-full rounded-xl overflow-hidden">
               <Image
-                src={tour.imageUrl}
+                src={imageUrl}
                 alt={tour.name}
                 fill
                 className="object-cover"
