@@ -33,9 +33,13 @@ import { sendBookingConfirmation } from "@/lib/email";
  * - Only processes verified events from Stripe
  */
 
+export async function POST(request: Request) {
   const stripe = getStripe();
   if (!stripe) {
-    return NextResponse.json({ error: "Stripe is not configured" }, { status: 503 });
+    return NextResponse.json(
+      { error: "Stripe is not configured" },
+      { status: 503 }
+    );
   }
   const body = await request.text();
   const headersList = await headers();
@@ -48,7 +52,7 @@ import { sendBookingConfirmation } from "@/lib/email";
     );
   }
 
-  let event: Stripe.Event;
+  let event: any;
 
   try {
     // Verify webhook signature
@@ -64,7 +68,7 @@ import { sendBookingConfirmation } from "@/lib/email";
 
   // Handle the checkout.session.completed event
   if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.Checkout.Session;
+    const session = event.data.object;
 
     try {
       await connectDB();
