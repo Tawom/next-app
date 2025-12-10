@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-import Stripe from "stripe";
+// import type { Stripe } from "stripe"; // Type-only import if needed
 import { getStripe } from "@/lib/stripe";
 import connectDB from "@/lib/mongodb";
 import Booking from "@/models/Booking";
