@@ -1,4 +1,4 @@
-import { Tour } from "@/types";
+import type { Tour } from "../types/index.ts";
 
 /**
  * Mock Tour Data
