@@ -18,14 +18,13 @@ import Stripe from "stripe";
  * - Use environment variables for all keys
  */
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error("STRIPE_SECRET_KEY is not defined in environment variables");
-}
-
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2025-11-17.clover",
-  typescript: true,
-});
+// Make Stripe optional - will be null if not configured
+export const stripe = process.env.STRIPE_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: "2025-11-17.clover",
+      typescript: true,
+    })
+  : null;
 
 /**
  * Format amount for Stripe
