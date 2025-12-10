@@ -1,4 +1,17 @@
-import Stripe from "stripe";
+let stripeInstance: import("stripe").Stripe | null = null;
+
+export function getStripe() {
+  if (!stripeInstance && process.env.STRIPE_SECRET_KEY) {
+    // Only require Stripe if the key exists
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const Stripe = require("stripe");
+    stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: "2025-11-17.clover",
+      typescript: true,
+    });
+  }
+  return stripeInstance;
+}
 
 /**
  * Stripe Server-side Configuration
@@ -17,14 +30,6 @@ import Stripe from "stripe";
  * - Never expose secret key in client code
  * - Use environment variables for all keys
  */
-
-// Make Stripe optional - will be null if not configured
-export const stripe = process.env.STRIPE_SECRET_KEY
-  ? new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: "2025-11-17.clover",
-      typescript: true,
-    })
-  : null;
 
 /**
  * Format amount for Stripe

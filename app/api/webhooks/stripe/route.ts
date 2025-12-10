@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import Stripe from "stripe";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import connectDB from "@/lib/mongodb";
 import Booking from "@/models/Booking";
 import Tour from "@/models/Tour"; // Required for .populate()
@@ -33,7 +33,10 @@ import { sendBookingConfirmation } from "@/lib/email";
  * - Only processes verified events from Stripe
  */
 
-export async function POST(request: Request) {
+  const stripe = getStripe();
+  if (!stripe) {
+    return NextResponse.json({ error: "Stripe is not configured" }, { status: 503 });
+  }
   const body = await request.text();
   const headersList = await headers();
   const signature = headersList.get("stripe-signature");

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { stripe, formatAmountForStripe } from "@/lib/stripe";
+import { getStripe, formatAmountForStripe } from "@/lib/stripe";
 import connectDB from "@/lib/mongodb";
 import Tour from "@/models/Tour";
 
@@ -28,6 +28,7 @@ import Tour from "@/models/Tour";
 export async function POST(request: Request) {
   try {
     // Check if Stripe is configured
+    const stripe = getStripe();
     if (!stripe) {
       return NextResponse.json(
         { error: "Payment processing is not configured" },
