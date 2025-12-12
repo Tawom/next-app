@@ -18,6 +18,7 @@ import bcrypt from "bcryptjs";
 
 export interface IUser extends Document {
   name: string;
+  username?: string;
   email: string;
   password: string;
   avatar?: string;
