@@ -1,5 +1,5 @@
 // Mock user data for seeding
-
+import type { IUser } from "../models/User";
 export const mockUsers: Partial<IUser>[] = [
   {
     name: "Alice Example",
