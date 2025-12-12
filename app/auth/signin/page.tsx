@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Button from "@/components/Button";
 
@@ -23,6 +23,7 @@ import Button from "@/components/Button";
 
 export default function SignInPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -67,6 +68,13 @@ export default function SignInPage() {
           </h1>
           <p className="text-gray-600">Sign in to your account to continue</p>
         </div>
+
+        {/* Success Message after Registration */}
+        {searchParams.get("registered") === "true" && (
+          <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-6">
+            Thank you for registering, please login.
+          </div>
+        )}
 
         {/* Error Message */}
         {error && (
